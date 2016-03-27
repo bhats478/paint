@@ -11,6 +11,12 @@ var brushPicker;
 var colorPicker;
 var brushSize;
 var brushType;
+var goldball;
+
+function preload (){
+  goldball = loadImage("file:///Users/sanjanabhatia/Dropbox/spring%202016/creative%20computing/paint/images/goldball.png");
+
+}
 
 
 function setup() {
@@ -31,16 +37,19 @@ function setup() {
     saveButton = select('.saveButton');
     saveButton.mouseClicked(saveFunction);
 
-    //TASK: set up the clear button
-
+    //set up the clear button
+    clearButton = select('.clearButton');
+    clearButton.mouseClicked(clearFunction);
 
     //set up the brush types
     brushPicker = createSelect();
     brushPicker.parent("brushType")
-
     brushPicker.option('paint brush');
-    //TASK: add paint bucket option
-    //TASK: add eraser option
+    brushPicker.option('paint bucket');
+    brushPicker.option('eraser')
+    brushPicker.option('triangle')
+    brushPicker.option('gold')
+
     //TASK: add two new brush options
 
     //Set up the brush type event listener:
@@ -58,6 +67,25 @@ function draw() {
             standardStroke();
         }
         //add your other brush options here using else if
+        else if (brushType == "paint bucket") {
+            background("#"+colorPicker.value());
+        }
+
+        else if (brushType == "eraser"){
+            stroke("white");
+            strokeWeight(brushSize.value());
+            line(pmouseX, pmouseY, mouseX, mouseY);
+        }
+
+        else if (brushType == "triangle"){
+            fill("#"+ColorPicker.value());
+
+        }
+        
+        else if (brushType == "gold"){
+            image("goldball");
+
+        }
 
     } else {
         //Cursor options: ARROW, CROSS, HAND, MOVE, TEXT, or WAIT, or path for image
@@ -65,6 +93,8 @@ function draw() {
         cursor(CROSS);
     }
 }
+
+
 
 //--------------------------
 // Brushes
@@ -88,7 +118,7 @@ function standardStroke(){
 
 }
 
-//TASK: set up a paint bucket, eraser, and two new brushes
+//TASK: set up  two new brushes
 //each one should have its own function
 
 //--------------------------
@@ -106,4 +136,7 @@ function saveFunction() {
     save(drawingCanvas, "myDrawing.jpg");
 }
 
-//TASK: set up clear button function
+function clearFunction() {
+    clear(drawingCanvas)
+    background("white")
+}
