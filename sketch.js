@@ -14,7 +14,7 @@ var brushType;
 var goldball;
 
 function preload (){
-  goldball = loadImage("file:///Users/sanjanabhatia/Dropbox/spring%202016/creative%20computing/paint/images/goldball.png");
+  goldball = loadImage("images/goldball.png");
 
 }
 
@@ -79,11 +79,13 @@ function draw() {
 
         else if (brushType == "triangle"){
             fill("#"+ColorPicker.value());
-
+            
         }
-        
+
         else if (brushType == "gold"){
-            image("goldball");
+            imageMode(CENTER);
+            image(goldball,mouseX,mouseY);
+
 
         }
 
@@ -140,3 +142,6 @@ function clearFunction() {
     clear(drawingCanvas)
     background("white")
 }
+
+//Create a new function for drawing it (similar to the existing standardStroke function).
+//Detect if the dropdown equals your new brush in draw() and call your new function for drawing it
